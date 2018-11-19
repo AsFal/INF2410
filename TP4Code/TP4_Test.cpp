@@ -17,20 +17,24 @@ TP4_Test::TP4_Test()
 {
 	Cube     cub1(Point3D(1., 2., 3.), 2., 2., 2.);
 	Cube     cub2(Point3D(-1., 2., 4.), 2.5f, 2.1f, 4.);
-	Torus	 tor1(Point3D(3., -1., 1.), 1., 2.);
-	Torus	 tor2(Point3D(2., 1., 2.), 1., 2.);
+	Cylinder cyl1(Point3D(3., -1., 1.), 1., 2.);
+	Cylinder cyl2(Point3D(2., 1., 2.), 1., 2.);
+	Torus	 tor1(Point3D(4., -1., 1.), 4., 2.);
+	Torus	 tor2(Point3D(1., 3., 2.), 3., 2.);
 	Sphere   sph1(Point3D(2., 2., 2.), 2.);
 	Sphere   sph2(Point3D(3., -1., 1.), 3.5);
 
 	Objet3DComposite compos1;
 	compos1.addChild(cub1);
-	compos1.addChild(tor1);
+	compos1.addChild(cyl1);
 	compos1.addChild(sph1);
+	compos1.addChild(tor1);
 
 	Objet3DComposite compos2;
 	compos2.addChild(sph1);
 	compos2.addChild(compos1);
 	compos2.addChild(cub1);
+	compos2.addChild(cyl2);
 	compos2.addChild(tor2);
 
 	m_icone3D.addChild(cub2);
@@ -89,16 +93,25 @@ TP4_Test::RESULTAT TP4_Test::testComposite()
 	}
 
 	std::cout << "===== testComposite TEST 5 SUCCES" << std::endl;
-
+	
 	++itCompos2; ++itCompos2;  ++itCompos2;
-	PrimitiveParams paramsTor2 = itCompos2->getParameters();
-	if (paramsTor2.size() != 2)
+	PrimitiveParams paramsCyl2 = itCompos2->getParameters();
+	if (paramsCyl2.size() != 2)
 	{
 		std::cout << "===== testComposite TEST 6 ECHEC" << std::endl;
 		return ECHEC;
 	}
-
 	std::cout << "===== testComposite TEST 6 SUCCES" << std::endl;
+
+	++itCompos2;
+	PrimitiveParams paramsTor2 = itCompos2->getParameters();
+	if (paramsTor2.size() != 2)
+	{
+		std::cout << "===== testComposite TEST 7 ECHEC" << std::endl;
+		return ECHEC;
+	}
+
+	std::cout << "===== testComposite TEST 7 SUCCES" << std::endl;
 
 	std::cout << m_icone3D << std::endl;
 
@@ -154,6 +167,7 @@ TP4_Test::RESULTAT TP4_Test::testDecorator()
 	std::cout << "===== testDecorator TEST 5 SUCCES" << std::endl;
 
 	m_cylTransformed.setTranslation(Point3D(1., 1., 1.));
+	centreTransform = m_cylTransformed.getCenter(); // Recuperer le centre transforme
 	Point3D resultatTransform2(3.5f, 2.5f, 1.);
 	if (centreTransform != resultatTransform2)
 	{

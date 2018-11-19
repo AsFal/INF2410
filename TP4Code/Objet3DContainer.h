@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <memory>
+#include <list>
 
 // Configuration du stockage des enfants des objets composites
 using Objet3DPtr = std::unique_ptr<class Objet3DAbs>;
