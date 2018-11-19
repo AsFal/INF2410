@@ -26,4 +26,5 @@ int main(int argc, char** argv)
 	{
 		std::cout << "Tous les tests se sont executes avec SUCCES" << std::endl << std::endl;
 	}
+	return 0;
 }
