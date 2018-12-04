@@ -21,6 +21,8 @@ void TransformCmd::cancel()
 {
 	try
 	{
+		TransformedObject3D* obj = dynamic_cast<TransformedObject3D*> (&*m_objIter);
+		m_objIter->getParent().replaceChild(m_objIter, obj->getObject3D());
 		// A COMPLETER:
 		//		- Verifier si l'objet sur lequel pointe l'iterateur est un objet transforme
 		//		- Recuperer la primitive decoree par l'objet transforme
@@ -37,6 +39,9 @@ void TransformCmd::execute()
 {
 	try 
 	{
+		PrimitiveAbs* obj = dynamic_cast<PrimitiveAbs*> (&*m_objIter);
+		TransformedObject3D nouvelObj(*obj, m_translate, m_scale);
+		m_objIter->getParent().replaceChild(m_objIter, nouvelObj);
 		// A COMPLETER:
 		//		- Verifier si l'objet sur lequel pointe l'iterateur est une primitive
 		//		- Construire un nouvel objet transforme en ajoutant un decorateur
