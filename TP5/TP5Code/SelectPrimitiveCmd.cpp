@@ -40,7 +40,7 @@ void SelectPrimitiveCmd::getSelectObjects(Obj3DIteratorContainer & objContainer)
 {
 	for each (auto it in m_selectObjContainer)
 	{
-		objContainer.push_back(it); // check ici
+		objContainer.push_back(it);
 	}
 	// A COMPLETER:
 	// Transferer les objets selectionnes du conteneur local a la commande
